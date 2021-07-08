@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title1 %}
+    Изменение комплектующей
+{% endblock %}
+
+{% block title %}
+    Изменение комплектующей
+{% endblock %}
+
+
+
+{% block content %}
+ <div class="row">
+        <div class="col-12">
+            <div class="card m-b-20">
+                <div class="card-body">
+                    <div class="modal-body">
+                    <span>{{ error }}</span>
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+
+
+                        <button type="submit" class="btn btn-primary">Изменить комплектующую</button>
+                        <a type="button" class="btn btn-secondary" data-dismiss="modal" href="{% url 'compl'%}">Закрыть</a>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+ </div>
+{% endblock %}

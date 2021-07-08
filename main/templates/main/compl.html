@@ -1,0 +1,105 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title1 %}
+    Список комплектующих
+{% endblock %}
+
+{% block title %}
+    Список комплектующих
+{% endblock %}
+
+
+
+{% block content %}
+    <div id="myModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0">Добавление оборудования</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>{{ error }}</span>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+{#                        'model', 'Date_purchase', 'Date_end_warranty', 'invent_number', 'worker', 'group', 'type', 'status'#}
+
+                        <button type="submit" class="btn btn-primary">Добавить комплектующую</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Exportable Table -->
+ <div class="row">
+        <div class="col-12">
+            <div class="card m-b-20">
+                <div class="card-body">
+                    <h4 class="mt-0 header-title">КОМПЛЕКТУЮЩИЕ</h4>
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                           style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <button class="btn btn-success  buttons-html5 " tabindex="0" data-toggle="modal"
+                                data-target="#myModal"
+                                aria-controls="datatable-buttons" type="button" ><span>Добавить комплектующие</span>
+                        </button>
+                        <thead>
+                        <tr>
+                            <th>Серийный номер</th>
+                            <th>Название комплектующих</th>
+                            <th>Дата покупки</th>
+                            <th>Окончание гарантии</th>
+                            <th>Оборудование</th>
+                            <th>Тип комплектующей</th>
+                            <th>Характеристики</th>
+                            <th class="not-export-column" >Действия</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Серийный номер</th>
+                            <th>Название комплектующих</th>
+                            <th>Дата покупки</th>
+                            <th>Окончание гарантии</th>
+                            <th>Оборудование</th>
+                            <th>Тип комплектующей</th>
+                            <th>Характеристики</th>
+                            <th class="not-export-column" >Действия</th>
+                        </tr>
+                        </tfoot>
+
+
+                        <tbody>
+                        {% for c in сompl %}
+                            <tr>
+                                <td group="">{{ c.serial_number }}</td>
+                                <td>{{ c.name_of_component }}</td>
+                                <td>{{ c.Purchase_date|date:'d.m.Y г.'}} </td>
+                                <td>{{ c.Warranty_end_date|date:'d.m.Y г.'}} </td>
+                                <td>{{ c.Hardware_id}}</td>
+                                <td>{{ c.type }}</td>
+                                <td>{{ c.specifications_components }}</td>
+                                <td>
+                                    <div>
+                                        <a href="{% url 'compl-detale' c.id %}" class="btn btn-primary text-light">
+                                        Изменить
+                                        </a>
+                                        <a  href="{% url 'deleteCompl' c.id %}" class="btn btn-danger text-light">
+                                        Удалить
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div>
+    <!-- #END# Exportable Table -->
+{% endblock %}

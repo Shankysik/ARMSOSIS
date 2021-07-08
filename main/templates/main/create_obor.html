@@ -1,0 +1,19 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title1 %}
+    Добавление оборудования
+{% endblock %}
+
+{% block title %}
+    Список оборудования
+{% endblock %}
+
+
+
+{% block content %}
+                    <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button class="btn-warning" type="submit">Добавить</button>
+                    </form>
+{% endblock %}

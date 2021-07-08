@@ -1,0 +1,84 @@
+{% load static %}
+<<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
+    <link rel="shortcut icon" href="{% static 'main/assets/images/favicon.ico' %}">
+
+    <link href="{% static 'main/assets/css/bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'main/assets/css/metismenu.min.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'main/assets/css/icons.css' %}" rel="stylesheet" type="text/css">
+    <link href="{% static 'main/assets/css/style.css' %}" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+
+<!-- Background -->
+<div class="account-pages"></div>
+<!-- Begin page -->
+<div class="wrapper-page">
+
+    <div class="card">
+        <div class="card-body">
+
+            <h3 class="text-center"><a class="logo logo-admin"><img src="{% static 'main/assets/images/logo.png' %}"
+                                                                    height="60" alt="logo"></a>
+            </h3>
+
+            <div class="p-2" >
+                <h4 class="text-muted font-18 m-b-5 text-center">Авторизация</h4>
+                {% if form.errors %}
+                <label class="text-center">Неправильный логин или пароль. Пожалуйста, попробуйте ещё раз.</label>
+                {% endif%}
+                {% if next %}
+                {% if user.is_authenticated %}
+                    <label class="text-center">Ваша учетная запись не имеет доступа к этой странице. Чтобы продолжить, пожалуйста, войдите в систему с учетной записью, которая имеет доступ.</label>
+                {% else %}
+                    <label class="text-center">Пожалуйста, войдите, чтобы увидеть эту страницу.</label>
+                {% endif %}
+                {% endif %}
+                <form class="form-horizontal m-t-30" method="post" >
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="username">Логин</label>
+                        <input type="text" name="username" class="form-control" id="username" placeholder="Введите логин" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userpassword">Пароль</label>
+                        <input type="password"  name="password" class="form-control" id="userpassword" placeholder="Введите пароль" required>
+                    </div>
+
+                    <div class="form-group row m-t-20">
+                        <div class="col-12 text-center">
+                            <button class="btn btn-primary w-md waves-effect waves-light" type="submit">Вход</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- END wrapper -->
+
+
+<!-- jQuery  -->
+<script src="{% static 'main/assets/js/jquery.min.js' %}"></script>
+<script src="{% static 'main/assets/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'main/assets/js/metisMenu.min.js' %}"></script>
+<script src="{% static 'main/assets/js/jquery.slimscroll.js' %}"></script>
+<script src="{% static 'main/assets/js/waves.min.js' %}"></script>
+
+<script src="{% static 'main/assets/plugins/jquery-sparkline/jquery.sparkline.min.js' %}"></script>
+
+<!-- App js -->
+<script src="{% static 'main/assets/js/app.js' %}"></script>
+
+</body>
+
+</html>

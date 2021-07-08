@@ -1,0 +1,70 @@
+{% extends 'main/base.html' %}
+{% block title1 %}
+    История операций
+{% endblock %}
+
+{% block title %}
+    История операций
+{% endblock %}
+
+{% block content %}
+    <div class="row">
+        <div class="col-12">
+            <div class="card m-b-20">
+                <div class="card-body">
+
+                    <h4 class="mt-0 header-title">ИСТОРИЯ ОПЕРАЦИЙ</h4>
+
+
+                    <table id="datatable-buttons" class="table table-bordered dt-responsive nowrap"
+                           style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <thead>
+                        <tr>
+                            <th>Дата/время</th>
+                            <th>Оборудование</th>
+                            <th>Тип оборудования</th>
+                            <th>Комплектующая</th>
+                            <th>Статус</th>
+                            <th>Операция</th>
+                            <th>Работник</th>
+                        </tr>
+                        </thead>
+
+
+                        <tbody>
+                        {% for i in hist %}
+                            <tr>
+                                <td>{{ i.сhange_date }}</td>
+                                {% if i.hardware %}
+                                    <td>{{ i.hardware }}</td>
+                                {% else %}
+                                    <td>Нет</td>
+                                {% endif %}
+                                {% if i.hard_type %}
+                                    <td>{{ i.hard_type }}</td>
+                                {% else %}
+                                    <td>Нет</td>
+                                {% endif %}
+                                {% if i.сomponent %}
+                                    <td>{{ i.сomponent }}</td>
+                                {% else %}
+                                    <td>Нет</td>
+                                {% endif %}
+                                {% if i.status %}
+                                    <td>{{ i.status }}</td>
+                                {% else %}
+                                    <td>Нет</td>
+                                {% endif %}
+
+                                <td>{{ i.operation }}</td>
+                                <td>{{ i.worker }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+{% endblock %}

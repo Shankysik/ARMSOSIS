@@ -1,0 +1,175 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title1 %}
+    Список оборудования
+{% endblock %}
+
+{% block title %}
+    Список оборудования
+{% endblock %}
+
+{#onclick="$('#myModal').modal('show')"#}
+
+{% block content %}
+    <!-- Exportable Table -->
+    <div id="myModal" class="modal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title mt-0">Добавление оборудования</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <span>{{ error }}</span>
+                    <form method="post">
+                        {% csrf_token %}
+
+                        {{ form.as_p }}
+{#                        'model', 'Date_purchase', 'Date_end_warranty', 'invent_number', 'worker', 'group', 'type', 'status'#}
+
+                        <button type="submit" class="btn btn-primary">Добавить оборудование</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{#    <div id="DeleteModal" class="modal" tabindex="-1">#}
+{#        <div class="modal-dialog">#}
+{#            <div class="modal-content">#}
+{#                <div class="modal-header">#}
+{#                    <h5 class="modal-title mt-0">Удаление оборудования</h5>#}
+{#                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                        <span aria-hidden="true">×</span>#}
+{#                    </button>#}
+{#                </div>#}
+{#                <div class="modal-body">#}
+{#                    <span>{{ error }}</span>#}
+{#                    <form method="post">#}
+{#                        {% csrf_token %}#}
+{##}
+{##}
+{#                        'model', 'Date_purchase', 'Date_end_warranty', 'invent_number', 'worker', 'group', 'type', 'status'#}
+{##}
+{#                        <button type="submit" class="btn btn-primary" href="{% url 'deleteObor' id %}">Удалить оборудование</button>#}
+{#                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>#}
+{#                    </form>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+    <div class="row">
+        <div class="col-12">
+            <div class="card m-b-20">
+                <div class="card-body">
+
+                    <h4 class="mt-0 header-title">ОБОРУДОВАНИЕ</h4>
+
+                    <table id="datatable-buttons" class="table table-striped table-bordered dt-responsive nowrap"
+                           style="border-collapse: collapse; border-spacing: 0; width: 100%;">
+                        <button class="btn btn-success  buttons-html5 " tabindex="0" data-toggle="modal"
+                                data-target="#myModal"
+                                aria-controls="datatable-buttons" type="button" ><span>Добавить оборудование</span>
+                        </button>
+                        <thead>
+                        <tr>
+                            <th>Модель</th>
+                            <th>Инвентарный номер</th>
+                            <th>Начало эксплуатации</th>
+                            <th>Статус</th>
+                            <th>Окончание гарантии</th>
+                            <th>Тип оборудования</th>
+                            <th>Пользователь</th>
+                            <th>Характеристики</th>
+                            <th class="not-export-column" >Действия</th>
+                        </tr>
+                        </thead>
+                        <tfoot>
+                        <tr>
+                            <th>Модель</th>
+                            <th>Инвентарный номер</th>
+                            <th>Начало эксплуатации</th>
+                            <th>Статус</th>
+                            <th>Окончание гарантии</th>
+                            <th>Тип оборудования</th>
+                            <th>Пользователь</th>
+                            <th>Характеристики</th>
+                            <th class="not-export-column">Действия</th>
+                        </tr>
+                        </tfoot>
+
+
+                        <tbody>
+                        {% for el in Hardw %}
+                            <tr>
+                                <td group="{{ el.group.name }}">{{ el.model }}</td>
+                                <td>{{ el.invent_number }}</td>
+                                <td>{{ el.Date_purchase|date:'d.m.Y г.'}} </td>
+                                <td>{{ el.status }}</td>
+                                <td>{{ el.Date_end_warranty|date:'d.m.Y г.'}} </td>
+                                <td>{{ el.type }}</td>
+                                <td>{{ el.worker }}</td>
+                                <td>{{ el.specifications_hardware }}</td>
+                                <td>
+                                    <div>
+                                        <a href="{% url 'obor-detale' el.id %}" class="btn btn-primary text-light">
+                                        Изменить
+                                        </a>
+                                        <a  href="{% url 'deleteObor' el.id %}" class="btn btn-danger text-light">
+                                        Удалить
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div> <!-- end col -->
+    </div> <!-- end row -->
+
+    {#    <script>#}
+    {#        $(document).ready(function () {#}
+    {#            $("#groupfilter").change(function () {#}
+    {#                _this = this;#}
+    {#                $.each($("#obordata tr"), function () {#}
+    {#                    if ('-------------' == ($('#groupfilter option:selected').text())) {#}
+    {#                        $(this).show();#}
+    {#                        return;#}
+    {#                    }#}
+    {#                    if ($(this).find('td:first').attr('group') != ($('#groupfilter option:selected').text())) {#}
+    {#                        $(this).hide();#}
+    {#                    } else {#}
+    {#                        $(this).show();#}
+    {#                    }#}
+    {#                });#}
+    {#            });#}
+    {#        });#}
+    {#    </script>#}
+{#<script>#}
+{#function DeleteObor(id) {#}
+{#    swal({#}
+{#        title: 'Вы уверены?',#}
+{#        text: "Вы не сможете восстановить элемент!",#}
+{#        type: 'warning',#}
+{#        showCancelButton: true,#}
+{#        confirmButtonClass: 'btn btn-success',#}
+{#        cancelButtonClass: 'btn btn-danger m-l-10',#}
+{#        cancelButtonText: 'Отмена',#}
+{#        confirmButtonText: 'Да, удалить это!'#}
+{#    }, function () {#}
+{#            swal({#}
+{#                title:'Удалено!',#}
+{#                text:'Элемент был успешно удален.',#}
+{#                type:'success'#}
+{#            });#}
+{#            setTimeout(function Deleter() {#}
+{#                window.location.assign('obor/'+id+'/delete')#}
+{#            }, 1000)#}
+{#    });#}
+{#</script>#}
+{% endblock %}
+

@@ -1,0 +1,25 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title1 %}
+    Добавление сотрудника
+{% endblock %}
+
+{% block title %}
+    Добавление сотрудника
+{% endblock %}
+
+
+
+{% block content %}
+    <div class="row clearfix">
+        <div class="col-lg-12">
+            <div class="card">
+                <p>Добавление сотрудника</p>
+                <form method="post">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

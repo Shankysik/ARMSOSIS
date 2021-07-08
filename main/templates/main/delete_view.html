@@ -1,0 +1,33 @@
+{% extends 'main/base.html' %}
+{% load static %}
+{% block title1 %}
+    Удаление оборудования
+{% endblock %}
+
+{% block title %}
+    Удаление оборудования
+{% endblock %}
+
+
+
+{% block content %}
+ <div class="row">
+        <div class="col-12">
+            <div class="card m-b-20">
+                <div class="card-body">
+                    <div class="modal-body">
+                    <form method="post">
+                        {% csrf_token %}
+                        <h1>Удалить оборудование</h1>
+
+{#                        'model', 'Date_purchase', 'Date_end_warranty', 'invent_number', 'worker', 'group', 'type', 'status'#}
+
+                        <button type="submit" class="btn btn-primary">Удалить оборудование</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </form>
+                </div>
+                </div>
+            </div>
+        </div>
+ </div>
+{% endblock %}
